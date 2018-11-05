@@ -94,19 +94,19 @@ int main()
 			break;
 
 		case '2':
-			Save(OpAmp, database_length);
+			//Save(OpAmp, database_length);
 			break;
 
 		case '3':
-			Load(OpAmp, database_length);
+			//Load(OpAmp, database_length);
 			break;
 
 		case '4':
-			Sort(OpAmp, database_length);
+			//Sort(OpAmp, database_length);
 			break;
 
 		case '5':
-			Display(OpAmp, database_length);
+			//Display(OpAmp, database_length);
 			break;
 
 		case '6':
@@ -131,6 +131,10 @@ int main()
 //
 void Enter(OpAmps ByVal, unsigned long)
 {
+
+	DATABASE_FILENAME;
+	//strcat(location);
+
 	while (1)
 	{
 		OpAmps AddOpAmp;
@@ -152,138 +156,3 @@ void Enter(OpAmps ByVal, unsigned long)
 		return;
 	}
 }
-
-// if the database is full, inform the user
-//<enter code here>
-
-// if the database is not full, get the data from the user and alter the database 
-// length
-//	<enter code here>
-//}
-
-
-// Save the database to the file specified by DATABASE_FILENAME. If the file 
-// exists it is simply overwritten without asking the user.
-// Arguments:
-//   (1) the database
-//   (2) the length of the database
-// Returns: void
-void Save(OpAmps *SaveElement, unsigned long)
-
-{
-	//<enter code here>
-	//	fstream output_file;  // file stream for output
-	//
-	//						  // open the file
-	//	<enter code here>
-	//
-	//		// write length information to file
-	//		<enter code here>
-	//
-	//		// write data to file
-	//		<enter code here>
-	//
-	//		// close the file
-	//		output_file.close();
-}
-
-
-// Load the database from the file specified by DATABASE_FILENAME. If the file
-// exists it simply overwrites the data currently in memory without asking
-// the user.
-// Arguments:
-//   (1) the database
-//   (2) the length of the database
-// Returns: void
-//<enter code here>
-void Load(OpAmps *LoadElement, unsigned long)
-{
-	//	fstream input_file;  // file stream for input
-	//
-	//						 // open the file
-	//	<enter code here>
-	//
-	//		// load database length information from file
-	//		<enter code here>
-	//
-	//		// load data from file
-	//		<enter code here>
-	//
-	//		// close the file
-	//		input_file.close();
-}
-
-
-// Sort the database either using the name of the op-amps or using the slew 
-// rate values.
-// Arguments:
-//   (1) the database
-//   (2) the length of the database
-// Returns: void
-void Sort(OpAmps *SortDatabase, unsigned long)
-{
-	//<enter code here>
-
-	//	char UserInput;
-	//
-	//	// show the menu of options
-	//	cout << endl;
-	//	cout << "Sorting options" << endl;
-	//	cout << "---------------" << endl;
-	//	cout << "1. To sort by name" << endl;
-	//	cout << "2. To sort by slew rate" << endl;
-	//	cout << "3. No sorting" << endl << endl;
-	//
-	//	// get the user's choice of sorting operation required
-	//	cout << "Enter your option: ";
-	//	cin >> UserInput;
-	//	cout << endl;
-	//
-	//	// act on the user's input
-	//	<enter code here>
-}
-
-
-// Compare function for qsort, to help sort the elements by the Name member of
-// OpAmps.
-// Items should be sorted into alphabetical order.
-// Arguments:
-//   (1) a database item
-//   (2) a database item
-// Returns: result of the comparison
-//<enter code here>
-//{
-//	<enter code here>
-//}
-
-
-// Compare function for qsort, to help sort the elements by the SlewRate member of 
-// OpAmps.
-// Items should be sorted in increasing value of slew rate.
-// Arguments:
-//   (1) a database item
-//   (2) a database item
-// Returns: result of the comparison
-//<enter code here>
-//{
-//	<enter code here>
-//}
-
-
-// Display all of the messages in the database.
-// Arguments:
-//   (1) the database
-//   (2) the length of the database
-// Returns: void
-
-//<enter code here>
-void Display(OpAmps *DisplayDatabase, unsigned long)
-{
-	//	// if the database is empty, inform the user
-	//	<enter code here>
-	//
-	//		// if the database is not empty, display all the elements in the database
-	//		<enter code here>
-}
-
-
