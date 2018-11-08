@@ -98,7 +98,7 @@ int main()
 			break;
 
 		case '3':
-			//Load(OpAmp, &database_length);
+			Load(OpAmp, database_length);
 			break;
 
 		case '4':
@@ -178,20 +178,18 @@ void Enter(OpAmps &EnterElement, unsigned long &database_length)
 // Returns: void
 void Save(OpAmps *SaveElement, unsigned long &database_length)
 {
-	//OpAmps *SaveElement;
 	fstream output_file;  // file stream for output
 	/*OpAmps AddOpAmp;
 	OpAmps *pOpAmps;
 	pOpAmps = &AddOpAmp;*/
-//
-//						  // open the file
+    // open the file
 	output_file.open(DATABASE_FILENAME, ios::out);
 
-//		// write length information to file
+
 	if (output_file.is_open()) {
-
+		// write length information to file
 		output_file << database_length << "\n";
-
+		// write data to file
 		for (int i = 0; i < database_length; i++) 
 		{
 			output_file << "\n" << (SaveElement+i)->Name << "\n";
@@ -206,13 +204,8 @@ void Save(OpAmps *SaveElement, unsigned long &database_length)
 		cout << "Unable to open file" << "\n";
 		return;
 	}
-	cout << "Save completed";
-//		//<enter code here>
-//
-//		// write data to file
-//		//<enter code here>
-//
-//		// close the file
+	cout << "Save completed" << "\n";
+    // close the file
 	output_file.close();
 }
 
@@ -224,22 +217,34 @@ void Save(OpAmps *SaveElement, unsigned long &database_length)
 //   (1) the database
 //   (2) the length of the database
 // Returns: void
-//<enter code here>
-//{
-//	fstream input_file;  // file stream for input
-//
-//						 // open the file
-//	<enter code here>
-//
-//		// load database length information from file
-//		<enter code here>
-//
-//		// load data from file
-//		<enter code here>
-//
-//		// close the file
-//		input_file.close();
-//}
+void Load(OpAmps *LoadElement, unsigned long &database_length) {
+
+	fstream input_file;  // file stream for input
+    // open the file
+	input_file.open(DATABASE_FILENAME, ios::in);
+
+
+	if (input_file.is_open()) {
+		// load database length information from file
+		input_file << database_length << "\n";
+		// load data from file
+		for (int i = 0; i < database_length; i++)
+		{
+			input_file << "\n" << (LoadElement + i)->Name << "\n";
+			input_file << (LoadElement + i)->PinCount << "\n";
+			input_file << (LoadElement + i)->SlewRate << "\n";
+
+		}
+		cout << "Load Successful" << "\n";
+	}
+	else
+	{
+		cout << "Unable to open file" << "\n";
+		return;
+	}
+		// close the file
+		input_file.close();
+}
 
 
 // Sort the database either using the name of the op-amps or using the slew 
