@@ -102,11 +102,11 @@ int main()
 			break;
 
 		case '4':
-			//Sort(OpAmp, &database_length);
+			//Sort(OpAmp, database_length);
 			break;
 
 		case '5':
-			//Display(OpAmp, &database_length);
+			Display(OpAmp, database_length);
 			break;
 
 		case '6':
@@ -306,11 +306,29 @@ void Load(OpAmps *LoadElement, unsigned long &database_length) {
 //   (1) the database
 //   (2) the length of the database
 // Returns: void
-//<enter code here>
-//{
-//	// if the database is empty, inform the user
+void Display(OpAmps *DisplayDatabase, unsigned long &database_length)
+{
+    // if the database is empty, inform the user
+	if (database_length == 0)
+	{
+		cout << "Database is empty" << "\n";
+		return;
+	}
+	// if the database is not empty, display all the elements in the database
+	else
+	{
+
+		for (int i = 0; i < database_length; i++)
+		{
+			cout << "\n" << (DisplayDatabase + i)->Name << "\n";
+			cout << (DisplayDatabase + i)->PinCount << "\n";
+			cout << (DisplayDatabase + i)->SlewRate << "\n";
+
+		}
+
+	}
 //	<enter code here>
 //
-//		// if the database is not empty, display all the elements in the database
+
 //		<enter code here>
-//}
+}
