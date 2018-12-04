@@ -24,7 +24,7 @@
 // any previous data in the file is overwritten. Also, when a database is loaded
 // from a file it should overwrite any data already in memory.
 
-#include "stdafx.h"
+//#include "stdafx.h"
 //#include "pch.h"
 #include <iostream>
 #include <fstream>
@@ -54,9 +54,13 @@ void Save(OpAmps *SaveElement, unsigned long &database_length);
 
 void Load(OpAmps *LoadElement, unsigned long &database_length);
 
-void Sort(OpAmps *SortDatabase, unsigned long &database_length);
+int Sort(OpAmps *SortDatabase, unsigned long &database_length);
 
 void Display(OpAmps *DisplayDatabase, unsigned long &database_length);
+
+void qsort(void* OpAmps, size_t &database_length, size_t size_of_elements, int(*compare)(const void*, const void*));
+
+int compare(const void* a, const void* b);
 
 // Control the entering, saving, loading, sorting and displaying of elements in the 
 // database.
@@ -102,7 +106,7 @@ int main()
 			break;
 
 		case '4':
-			//Sort(OpAmp, database_length);
+			Sort(OpAmp, database_length);
 			break;
 
 		case '5':
@@ -137,11 +141,11 @@ void Enter(OpAmps &EnterElement, unsigned long &database_length)
 	// if the database is full, inform the user
 
 	if (database_length == DATABASE_MAX) {
-		cout << "The database is full" << "\n" ;
+		cout << "The database is full" << "\n";
 	}
 	else
 	{
-		
+
 		//OpAmps AddOpAmp;
 		//OpAmps *pOpAmps;
 		//pOpAmps = &AddOpAmp;
@@ -158,7 +162,7 @@ void Enter(OpAmps &EnterElement, unsigned long &database_length)
 		cin >> pOpAmps->SlewRate;
 
 		database_length++;
-		
+
 		cout << "\nYou have entered:\n";
 		cout << pOpAmps->Name << "\n";
 		cout << pOpAmps->PinCount << "\n";
@@ -182,22 +186,22 @@ void Save(OpAmps *SaveElement, unsigned long &database_length)
 	/*OpAmps AddOpAmp;
 	OpAmps *pOpAmps;
 	pOpAmps = &AddOpAmp;*/
-    // open the file
+	// open the file
 	output_file.open(DATABASE_FILENAME, ios::out);
 
 
-	if (output_file.is_open()) {
+	if (output_file.is_open() == true) {
 		// write length information to file
 		output_file << database_length << "\n";
 		// write data to file
-		for (int i = 0; i < database_length; i++) 
+		for (int i = 0; i < database_length; i++)
 		{
-			output_file << "\n" << (SaveElement+i)->Name << "\n";
-			output_file << (SaveElement+i)->PinCount << "\n";
-			output_file << (SaveElement+i)->SlewRate << "\n";
+			output_file << "\n" << (SaveElement + i)->Name << "\n";
+			output_file << (SaveElement + i)->PinCount << "\n";
+			output_file << (SaveElement + i)->SlewRate << "\n";
 
 		}
-		
+
 	}
 	else
 	{
@@ -205,7 +209,7 @@ void Save(OpAmps *SaveElement, unsigned long &database_length)
 		return;
 	}
 	cout << "Save completed" << "\n";
-    // close the file
+	// close the file
 	output_file.close();
 }
 
@@ -220,19 +224,27 @@ void Save(OpAmps *SaveElement, unsigned long &database_length)
 void Load(OpAmps *LoadElement, unsigned long &database_length) {
 
 	fstream input_file;  // file stream for input
-    // open the file
+	// open the file
 	input_file.open(DATABASE_FILENAME, ios::in);
 
 
-	if (input_file.is_open()) {
+	if (input_file.is_open() == true) {
 		// load database length information from file
-		input_file << database_length << "\n";
+		input_file >> database_length;
+		input_file << "\n";
 		// load data from file
 		for (int i = 0; i < database_length; i++)
 		{
-			input_file << "\n" << (LoadElement + i)->Name << "\n";
-			input_file << (LoadElement + i)->PinCount << "\n";
-			input_file << (LoadElement + i)->SlewRate << "\n";
+			input_file << "\n";
+			input_file >> (LoadElement + i)->Name;
+			input_file << "\n";
+			input_file >> (LoadElement + i)->PinCount;
+			input_file << "\n";
+			input_file >> (LoadElement + i)->SlewRate;
+			input_file << "\n";
+			//input_file >> "\n" << (LoadElement + i)->Name >> "\n";
+			//input_file >> (LoadElement + i)->PinCount >> "\n";
+			//input_file >> (LoadElement + i)->SlewRate >> "\n";
 
 		}
 		cout << "Load Successful" << "\n";
@@ -242,8 +254,8 @@ void Load(OpAmps *LoadElement, unsigned long &database_length) {
 		cout << "Unable to open file" << "\n";
 		return;
 	}
-		// close the file
-		input_file.close();
+	// close the file
+	input_file.close();
 }
 
 
@@ -253,28 +265,41 @@ void Load(OpAmps *LoadElement, unsigned long &database_length) {
 //   (1) the database
 //   (2) the length of the database
 // Returns: void
-//<enter code here>
-//{
-//	char UserInput;
-//
-//	// show the menu of options
-//	cout << endl;
-//	cout << "Sorting options" << endl;
-//	cout << "---------------" << endl;
-//	cout << "1. To sort by name" << endl;
-//	cout << "2. To sort by slew rate" << endl;
-//	cout << "3. No sorting" << endl << endl;
-//
-//	// get the user's choice of sorting operation required
-//	cout << "Enter your option: ";
-//	cin >> UserInput;
-//	cout << endl;
-//
-//	// act on the user's input
-//	<enter code here>
-//}
+int Sort(OpAmps *SortDatabase, unsigned long &database_length) {
 
+	char UserInput;
+	//
+	//	// show the menu of options
+	cout << endl;
+	cout << "Sorting options" << endl;
+	cout << "---------------" << endl;
+	cout << "1. To sort by name" << endl;
+	cout << "2. To sort by slew rate" << endl;
+	cout << "3. No sorting" << endl << endl;
+	//
+	//	// get the user's choice of sorting operation required
+	cout << "Enter your option: ";
+	cin >> UserInput;
+	cout << endl;
+	//
+	//	// act on the user's input
+	switch (UserInput) {
+	case '1':
+		//AlphabetqSort(&SortDatabase, database_length);
+		break;
 
+	case '2':
+		//SlewRateqSort(SortDatabase, database_length);
+		break;
+
+	case '3':
+		return 0;
+		break;
+
+		//	<enter code here>
+	}
+
+}
 // Compare function for qsort, to help sort the elements by the Name member of
 // OpAmps.
 // Items should be sorted into alphabetical order.
@@ -282,10 +307,19 @@ void Load(OpAmps *LoadElement, unsigned long &database_length) {
 //   (1) a database item
 //   (2) a database item
 // Returns: result of the comparison
-//<enter code here>
-//{
-//	<enter code here>
-//}
+void AlphabetqSort(OpAmps &SortDatabase, unsigned long &database_length) {
+
+	//qsort(Name, database_length, sizeof(char), compare);
+	//qsort(SortDatabase.Name, database_length, sizeof(int), a - b);
+
+	//for (SortDatabase.Name == 0; SortDatabase.Name <= 9; SortDatabase.Name++) {
+
+
+
+	//}
+
+}
+
 
 
 // Compare function for qsort, to help sort the elements by the SlewRate member of 
@@ -295,10 +329,14 @@ void Load(OpAmps *LoadElement, unsigned long &database_length) {
 //   (1) a database item
 //   (2) a database item
 // Returns: result of the comparison
-//<enter code here>
-//{
-//	<enter code here>
-//}
+void SlewRateqSort(OpAmps *Name, unsigned long &database_length) {
+
+	//qsort(SortDatabase.Name, database_length, sizeof(int), a - b);
+
+
+
+}
+
 
 
 // Display all of the messages in the database.
@@ -308,17 +346,24 @@ void Load(OpAmps *LoadElement, unsigned long &database_length) {
 // Returns: void
 void Display(OpAmps *DisplayDatabase, unsigned long &database_length)
 {
-    // if the database is empty, inform the user
-	if (database_length == 0)
-	{
-		cout << "Database is empty" << "\n";
-		return;
-	}
-	// if the database is not empty, display all the elements in the database
-	else
-	{
+	fstream input_file;
+	//fstream output_file;
+	// if the database is empty, inform the user
+	input_file.open(DATABASE_FILENAME, ios::in);
+	//output_file.open(DATABASE_FILENAME, ios::out);
 
-		for (int i = 0; i < database_length; i++)
+	if (input_file.is_open() == true) {
+		input_file << database_length << "\n";
+		if (database_length == 0)
+		{
+			cout << "Database is empty" << "\n";
+			return;
+		}
+	// if the database is not empty, display all the elements in the database
+		else
+		{
+
+			for (int i = 0; i < database_length; i++)
 		{
 			cout << "\n" << (DisplayDatabase + i)->Name << "\n";
 			cout << (DisplayDatabase + i)->PinCount << "\n";
@@ -327,8 +372,11 @@ void Display(OpAmps *DisplayDatabase, unsigned long &database_length)
 		}
 
 	}
-//	<enter code here>
-//
+	}
+	else
+	{
+		cout << "Unable to open file" << "\n";
+		return;
+	}
 
-//		<enter code here>
 }
