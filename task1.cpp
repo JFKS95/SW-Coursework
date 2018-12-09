@@ -55,7 +55,6 @@ int Sort(OpAmps *SortDatabase, unsigned long &database_length);
 
 void Display(OpAmps *DisplayDatabase, unsigned long &database_length);
 
-
 int NameCompare(const void* a, const void* b);
 
 int SlewCompare(const void* c, const void* d);
