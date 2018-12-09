@@ -45,11 +45,11 @@ struct OpAmps {
 #define DATABASE_FILENAME "database.txt"
 
 // function prototypes
-void Enter(OpAmps &EnterElement, unsigned long &database_length);
+void Enter(OpAmps &EnterElements, unsigned long &database_length);
 
-void Save(OpAmps *SaveElement, unsigned long &database_length);
+void Save(OpAmps *SaveElements, unsigned long &database_length);
 
-void Load(OpAmps *LoadElement, unsigned long &database_length);
+void Load(OpAmps *LoadElements, unsigned long &database_length);
 
 int Sort(OpAmps *SortDatabase, unsigned long &database_length);
 
@@ -130,7 +130,7 @@ int main()
 // Returns: void
 //<enter code here>
 //
-void Enter(OpAmps &EnterElement, unsigned long &database_length)
+void Enter(OpAmps &EnterElements, unsigned long &database_length)
 {
 	// if the database is full, inform the user
 	if (database_length == DATABASE_MAX) {
@@ -140,7 +140,7 @@ void Enter(OpAmps &EnterElement, unsigned long &database_length)
 	{
 
 		OpAmps *pOpAmps;
-		pOpAmps = &EnterElement;
+		pOpAmps = &EnterElements;
 
 		cout << "Enter OpAmp name: ";
 		cin >> pOpAmps->Name;
@@ -168,7 +168,7 @@ void Enter(OpAmps &EnterElement, unsigned long &database_length)
 //   (1) the database
 //   (2) the length of the database
 // Returns: void
-void Save(OpAmps *SaveElement, unsigned long &database_length)
+void Save(OpAmps *SaveElements, unsigned long &database_length)
 {
 	fstream output_file;  // file stream for output
 
@@ -180,9 +180,9 @@ void Save(OpAmps *SaveElement, unsigned long &database_length)
 		// write data to file
 		for (int i = 0; i < database_length; i++)
 		{
-			output_file << "\n" << (SaveElement + i)->Name << "\n";
-			output_file << (SaveElement + i)->PinCount << "\n";
-			output_file << (SaveElement + i)->SlewRate << "\n";
+			output_file << "\n" << (SaveElements + i)->Name << "\n";
+			output_file << (SaveElements + i)->PinCount << "\n";
+			output_file << (SaveElements + i)->SlewRate << "\n";
 		}
 	}
 	else
@@ -203,7 +203,7 @@ void Save(OpAmps *SaveElement, unsigned long &database_length)
 //   (1) the database
 //   (2) the length of the database
 // Returns: void
-void Load(OpAmps *LoadElement, unsigned long &database_length) {
+void Load(OpAmps *LoadElements, unsigned long &database_length) {
 
 	fstream input_file;  // file stream for input
 	// open the file
@@ -217,11 +217,11 @@ void Load(OpAmps *LoadElement, unsigned long &database_length) {
 		for (int i = 0; i < database_length; i++)
 		{
 			input_file << "\n";
-			input_file >> (LoadElement + i)->Name;
+			input_file >> (LoadElements + i)->Name;
 			input_file << "\n";
-			input_file >> (LoadElement + i)->PinCount;
+			input_file >> (LoadElements + i)->PinCount;
 			input_file << "\n";
-			input_file >> (LoadElement + i)->SlewRate;
+			input_file >> (LoadElements + i)->SlewRate;
 			input_file << "\n";
 		}
 		cout << "Load Successful" << "\n";
