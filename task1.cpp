@@ -271,7 +271,6 @@ int Sort(OpAmps *SortDatabase, unsigned long &database_length) {
 //   (1) a database item
 //   (2) a database item
 // Returns: result of the comparison
-//void AlphabetqSort(OpAmps &SortDatabase, unsigned long &database_length) {
 int NameCompare(const void* a, const void* b) {
 	return *((OpAmps*)a)->Name - *((OpAmps*)b)->Name;
 }
@@ -283,7 +282,6 @@ int NameCompare(const void* a, const void* b) {
 //   (1) a database item
 //   (2) a database item
 // Returns: result of the comparison
-//void SlewRateqSort(OpAmps *Name, unsigned long &database_length) {
 int SlewCompare(const void* c, const void* d) {
 	return ((OpAmps*)c)->SlewRate - ((OpAmps*)d)->SlewRate;
 }
