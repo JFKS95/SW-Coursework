@@ -24,8 +24,6 @@
 // any previous data in the file is overwritten. Also, when a database is loaded
 // from a file it should overwrite any data already in memory.
 
-//#include "stdafx.h"
-//#include "pch.h"
 #include <iostream>
 #include <fstream>
 #include <string.h>
@@ -47,7 +45,6 @@ struct OpAmps {
 #define DATABASE_FILENAME "database.txt"
 
 // function prototypes
-//<enter code here>
 void Enter(OpAmps &EnterElement, unsigned long &database_length);
 
 void Save(OpAmps *SaveElement, unsigned long &database_length);
@@ -58,7 +55,6 @@ int Sort(OpAmps *SortDatabase, unsigned long &database_length);
 
 void Display(OpAmps *DisplayDatabase, unsigned long &database_length);
 
-//void qsort(void *OpAmps, size_t &database_length, size_t size_of_elements, int(*compare)(const void*, const void*));
 
 int NameCompare(const void* a, const void* b);
 
@@ -188,9 +184,7 @@ void Save(OpAmps *SaveElement, unsigned long &database_length)
 			output_file << "\n" << (SaveElement + i)->Name << "\n";
 			output_file << (SaveElement + i)->PinCount << "\n";
 			output_file << (SaveElement + i)->SlewRate << "\n";
-
 		}
-
 	}
 	else
 	{
@@ -216,7 +210,6 @@ void Load(OpAmps *LoadElement, unsigned long &database_length) {
 	// open the file
 	input_file.open(DATABASE_FILENAME, ios::in);
 
-
 	if (input_file.is_open() == true) {
 		// load database length information from file
 		input_file >> database_length;
@@ -231,7 +224,6 @@ void Load(OpAmps *LoadElement, unsigned long &database_length) {
 			input_file << "\n";
 			input_file >> (LoadElement + i)->SlewRate;
 			input_file << "\n";
-
 		}
 		cout << "Load Successful" << "\n";
 	}
@@ -290,26 +282,8 @@ int Sort(OpAmps *SortDatabase, unsigned long &database_length) {
 // Returns: result of the comparison
 //void AlphabetqSort(OpAmps &SortDatabase, unsigned long &database_length) {
 int NameCompare(const void* a, const void* b) {
-	
 	return *((OpAmps*)a)->Name - *((OpAmps*)b)->Name;
-
 }
-	//qsort(Name, database_length, sizeof(char), compare);
-	//qsort(SortDatabase.Name, database_length, sizeof(int), compare);
-
-
-
-
-
-	//for (SortDatabase.Name == 0; SortDatabase.Name <= 9; SortDatabase.Name++) {
-
-
-
-	//}
-
-//}
-
-
 
 // Compare function for qsort, to help sort the elements by the SlewRate member of 
 // OpAmps.
@@ -320,20 +294,8 @@ int NameCompare(const void* a, const void* b) {
 // Returns: result of the comparison
 //void SlewRateqSort(OpAmps *Name, unsigned long &database_length) {
 int SlewCompare(const void* c, const void* d) {
-
-	//return *(double*)c - *(double*)d;
 	return ((OpAmps*)c)->SlewRate - ((OpAmps*)d)->SlewRate;
-
-
 }
-
-	//qsort(SortDatabase.Name, database_length, sizeof(int), a - b);
-
-
-
-//}
-
-
 
 // Display all of the messages in the database.
 // Arguments:
