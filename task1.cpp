@@ -143,11 +143,11 @@ void Enter(OpAmps &EnterElements, unsigned long &database_length)
 
 		database_length++;
 
-		cout << "\nYou have entered:\n";
+		cout << "\nYou have entered:\n\n";
 		cout << pOpAmps->Name << "\n";
 		cout << pOpAmps->PinCount << "\n";
 		cout << pOpAmps->SlewRate << "\n";
-		cout << "Value in database: " << database_length << "\n";
+		cout << "\n" << "database length: " << database_length << "\n";
 
 		return;
 
@@ -260,6 +260,9 @@ int Sort(OpAmps *SortDatabase, unsigned long &database_length) {
 
 	case '3':
 		return 0;
+		break;
+	default:
+		cout << "Invalid entry" << endl << endl;
 		break;
 	}
 
